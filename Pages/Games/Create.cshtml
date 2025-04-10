@@ -1,0 +1,51 @@
+@page
+@model WarhammerScheduler.Pages.Games.CreateModel
+@{
+    ViewData["Title"] = "Schedule a New Game";
+}
+
+<h1>Schedule a New Game</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Game.GameDate"></label>
+        <input asp-for="Game.GameDate" class="form-control" type="date" />
+        <span asp-validation-for="Game.GameDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Game.GameTime"></label>
+        <input asp-for="Game.GameTime" class="form-control" type="time" />
+        <span asp-validation-for="Game.GameTime" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Game.Faction"></label>
+        <select asp-for="Game.Faction" class="form-control" asp-items="Model.FactionOptions" id="game-faction">
+            <option value="">-- Select Faction --</option>
+        </select>
+        <span asp-validation-for="Game.Faction" class="text-danger"></span>
+    </div>
+
+    <div class="form-group"></div>
+        <label asp-for="Game.Detachment"></label>
+        <select asp-for="Game.Detachment" class="form-control" id="game-Detachment">
+            <option value="">-- Select Detachment --</option>
+        </select>
+        <span asp-validation-for="Game.Detachment" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Game.PointsLimit"></label>
+        <input asp-for="Game.PointsLimit" class="form-control" type="number" />
+        <span asp-validation-for="Game.PointsLimit" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Game.Notes"></label>
+        <textarea asp-for="Game.Notes" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Schedule</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
