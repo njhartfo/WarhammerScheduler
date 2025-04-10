@@ -1,0 +1,75 @@
+@page "{gameId:int}"
+@model WarhammerScheduler.Pages.GamePlayers.CreateModel
+@{
+    ViewData["Title"] = "Join a Game";
+}
+
+<h2>Join a Scheduled Game</h2>
+
+@if (Model.Game != null)
+{
+    <div class="mb-4">
+        <strong>Game Date:</strong> @Model.Game.GameDate.ToShortDateString()<br />
+        <strong>Game Time:</strong> @Model.Game.GameTime<br />
+        <strong>Points Limit:</strong> @Model.Game.PointsLimit
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="GamePlayer.PlayerName"></label>
+        <input asp-for="GamePlayer.PlayerName" class="form-control" />
+        <span asp-validation-for="GamePlayer.PlayerName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GamePlayer.Faction"></label>
+        <select asp-for="GamePlayer.Faction" class="form-control" asp-items="Model.FactionOptions" id="faction-select">
+            <option value="">-- Select Faction --</option>
+        </select>
+        <span asp-validation-for="GamePlayer.Faction" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GamePlayer.Detachment"></label>
+        <select asp-for="GamePlayer.Detachment" class="form-control" id="detachment-select">
+            <option value="">-- Select Detachment --</option>
+        </select>
+        <span asp-validation-for="GamePlayer.Detachment" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="GamePlayer.GameID" />
+
+    <button type="submit" class="btn btn-primary mt-3">Join Game</button>
+    <a asp-page="/Games/Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>
+
+@section Scripts {
+<script>
+    const detachmentMap = {
+        "Space Marines": ["Gladius Task Force", "Ironstorm Spearhead"],
+        "Imperial Guard": ["Armored Spearhead", "Infantry Company"],
+        "Adeptus Mechanicus": ["Cohort Cybernetica", "Rad-Cult"],
+        "Chaos Space Marines": ["Slaves to Darkness", "Chosen of the Dark Gods"],
+        "Death Guard": ["Inexorable Advance", "Plague Host"],
+        "Orks": ["Green Tide", "Speed Freaks"],
+        "T'au Empire": ["Kauyon", "Mont'ka"],
+        "Necrons": ["Awakened Dynasty", "Canoptek Court"]
+    };
+
+    document.getElementById("faction-select").addEventListener("change", function () {
+        const faction = this.value;
+        const detachments = detachmentMap[faction] || [];
+
+        const detachmentSelect = document.getElementById("detachment-select");
+        detachmentSelect.innerHTML = '<option value="">-- Select Detachment --</option>';
+
+        detachments.forEach(det => {
+            const opt = document.createElement("option");
+            opt.value = det;
+            opt.textContent = det;
+            detachmentSelect.appendChild(opt);
+        });
+    });
+</script>
+}

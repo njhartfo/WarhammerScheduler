@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using WarhammerScheduler.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SchedulerContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("SchedulerContext")));
 
 var app = builder.Build();
 

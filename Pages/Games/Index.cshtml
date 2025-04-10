@@ -1,0 +1,42 @@
+@page
+@model WarhammerScheduler.Pages.Games.IndexModel
+@{
+    ViewData["Title"] = "Scheduled Games";
+}
+
+<h1>Schedule Games</h1>
+
+<a asp-page="Create" class="btn btn-primary">+ Schedule New Game</a>
+
+<table class="table">
+    <thread>
+        <tr>
+            <th>Date</th>
+            <th>Points</th>
+            <th>Time</th>
+            <th>Notes</th>
+            <th></th>
+        </tr>
+    </thread>
+    
+    <tbody>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td>@game.GameDate.ToShortDateString()</td>
+                <td>@game.GameTime</td>
+                <td>@game.PointsLimit</td>
+                <td>@game.Notes</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@game.GameID">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@game.GameID">Delete</a>
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@game.GameID">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@game.GameID">Delete</a> |
+                    <a asp-page="/GamePlayers/Create" asp-route-gameId="@game.GameID">Join</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

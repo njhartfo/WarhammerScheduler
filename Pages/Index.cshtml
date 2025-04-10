@@ -1,10 +1,15 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to the Warhammer 40k Game Scheduler</h1>
+    <p class="lead">Plan your next battle, track who's playing what, and stay organized with ease.</p>
+
+    <div class="mt-4">
+        <a asp-page="/Games/Index" class="btn btn-primary btn-lg mx-2">View Scheduled Games</a>
+        <a asp-page="/Games/Create" class="btn btn-success btn-lg mx-2">Schedule a New Game</a>
+    </div>
 </div>
